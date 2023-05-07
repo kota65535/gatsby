@@ -160,5 +160,11 @@ export async function writeTypeScriptTypes(
     ...codegenOptions,
   })
 
+  if (
+    (await fs.pathExists(filename)) &&
+    result === (await fs.readFile(filename, `utf8`))
+  ) {
+    return
+  }
   await fs.outputFile(filename, result)
 }
